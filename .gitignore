@@ -34,4 +34,13 @@ yarn-error.log*
 .vercel
 
 #server
-server/node_modules
+server/infra/node_modules
+
+#production
+server/infra/build
+
+#js files
+server/infra/dist
+
+#server env
+server/infra/.env

@@ -3,11 +3,14 @@ import mongoose from "mongoose";
 import userRouter from "./routes/user";
 import hackathonRouter from "./routes/hackathon";
 import dotenv from "dotenv";
+import { handleCors } from "./middlewares/cors";
 dotenv.config();
 
 const app = express();
 
 const port = process.env.PORT;
+
+app.use(handleCors);
 
 app.use(express.json());
 app.use("/api/infra/user", userRouter);

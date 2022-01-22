@@ -64,6 +64,14 @@ export const updateHackathon = async (req: Request, res: Response) => {
       res.status(401).json();
       return;
     }
+    if (
+      hackathon.status === HackathonStatus.IN_PROGRESS ||
+      hackathon.status === HackathonStatus.HACKATHON_ENDED ||
+      hackathon.status === HackathonStatus.HACKATHON_EXPIRED
+    ) {
+      res.status(403).json({ message: "hackathon cannot be edited now" });
+      return;
+    }
     const updatedHackathon = await Hackathon.findOneAndUpdate(
       { _id: hackathonId },
       {

@@ -1,12 +1,13 @@
-import React from 'react';
-import Image from 'next/image';
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 const SignIn = () => {
   return (
-
-          <section>
-            <div className="flex min-h-screen overflow-hidden">
-              <div className="
+    <section>
+      <div className="flex min-h-screen overflow-hidden">
+        <div
+          className="
             flex flex-col
             justify-center
             flex-1
@@ -16,18 +17,32 @@ const SignIn = () => {
             lg:flex-none lg:px-20
             xl:px-24
           ">
-                <div className="w-full max-w-xl mx-auto lg:w-96">
+          <div className="w-full max-w-xl mx-auto lg:w-96">
+            <div>
+              <h2 className="mt-6 text-3xl font-extrabold text-neutral-600">
+                {" "}
+                Sign in.{" "}
+              </h2>
+            </div>
+            <div className="mt-8">
+              <div className="mt-6">
+                <form action="#" method="POST" className="space-y-6">
                   <div>
-                    <h2 className="mt-6 text-3xl font-extrabold text-neutral-600"> Sign in. </h2>
-                  </div>
-                  <div className="mt-8">
-                    <div className="mt-6">
-                      <form action="#" method="POST" className="space-y-6">
-                        <div>
-                          <label for="email" className="block text-sm font-medium text-neutral-600"> Email address </label>
-                          <div className="mt-1">
+                    <label
+                      for="email"
+                      className="block text-sm font-medium text-neutral-600">
+                      {" "}
+                      Email address{" "}
+                    </label>
+                    <div className="mt-1">
                       <input
-                        id="email" name="email" type="email" autocomplete="email" required="" placeholder="Your Email" className=" block
+                        id="email"
+                        name="email"
+                        type="email"
+                        autocomplete="email"
+                        required=""
+                        placeholder="Your Email"
+                        className=" block
                           w-full
                           px-5
                           py-3
@@ -47,14 +62,26 @@ const SignIn = () => {
                           focus:ring-white
                           focus:ring-offset-2
                           focus:ring-offset-gray-300
-                        "/>
+                        "
+                      />
                     </div>
-                    
-                        </div>
-                        <div className="space-y-1">
-                          <label for="password" className="block text-sm font-medium text-neutral-600"> Password </label>
-                          <div className="mt-1">
-                            <input id="password" name="password" type="password" autocomplete="current-password" required="" placeholder="Your Password" className="
+                  </div>
+                  <div className="space-y-1">
+                    <label
+                      for="password"
+                      className="block text-sm font-medium text-neutral-600">
+                      {" "}
+                      Password{" "}
+                    </label>
+                    <div className="mt-1">
+                      <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        autocomplete="current-password"
+                        required=""
+                        placeholder="Your Password"
+                        className="
                           block
                           w-full
                           px-5
@@ -75,27 +102,47 @@ const SignIn = () => {
                           focus:ring-white
                           focus:ring-offset-2
                           focus:ring-offset-gray-300
-                        "/>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center">
-                            <input id="remember-me" name="remember-me" type="checkbox" placeholder="Your password" className="
+                        "
+                      />
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center">
+                      <input
+                        id="remember-me"
+                        name="remember-me"
+                        type="checkbox"
+                        placeholder="Your password"
+                        className="
                           w-4
                           h-4
                           text-blue-600
                           border-gray-200
                           rounded
                           focus:ring-blue-500
-                        "/>
-                            <label for="remember-me" className="block ml-2 text-sm text-neutral-600"> Remember me </label>
-                          </div>
-                          <div className="text-sm">
-                            <a href="/forgot-password" className="font-medium text-blue-600 hover:text-blue-500"> Forgot your password? </a>
-                          </div>
-                        </div>
-                        <div>
-                          <button type="submit" className="
+                        "
+                      />
+                      <label
+                        for="remember-me"
+                        className="block ml-2 text-sm text-neutral-600">
+                        {" "}
+                        Remember me{" "}
+                      </label>
+                    </div>
+                    <div className="text-sm">
+                      <a
+                        href="/forgot-password"
+                        className="font-medium text-blue-600 hover:text-blue-500">
+                        {" "}
+                        Forgot your password?{" "}
+                      </a>
+                    </div>
+                  </div>
+                  <div>
+                    <Link href="/main">
+                      <button
+                        type="submit"
+                        className="
                         flex
                         items-center
                         justify-center
@@ -116,10 +163,14 @@ const SignIn = () => {
                         focus:ring-2
                         focus:ring-offset-2
                         focus:ring-blue-500
-                      "> Sign in </button>
-                        </div>
-                      </form>
-                      <div className="relative my-4">
+                      ">
+                        {" "}
+                        Sign in{" "}
+                      </button>
+                    </Link>
+                  </div>
+                </form>
+                {/* <div className="relative my-4">
                         <div className="absolute inset-0 flex items-center">
                           <div className="w-full border-t border-gray-300"></div>
                         </div>
@@ -154,18 +205,19 @@ const SignIn = () => {
                             <span className="ml-4"> Log in with Google</span>
                           </div>
                         </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="relative flex-1 hidden w-0 overflow-hidden lg:block">
-                <div className="absolute inset-0 object-cover w-full h-full"><Image  src="/static/img/signin.svg" alt="" layout='fill'/></div>
+                      </div> */}
               </div>
             </div>
-          </section>
-        
-  )
+          </div>
+        </div>
+        <div className="relative flex-1 hidden w-0 overflow-hidden lg:block">
+          <div className="absolute inset-0 object-cover w-full h-full">
+            <Image src="/static/img/signin.svg" alt="" layout="fill" />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default SignIn;

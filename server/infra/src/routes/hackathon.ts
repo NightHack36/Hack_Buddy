@@ -7,6 +7,8 @@ import {
 } from "../controllers/hackathon";
 import {
   addModerator,
+  applyForHackathon,
+  approveTeamRequest,
   createTeam,
   joinTeam,
   removeModerator,
@@ -69,6 +71,27 @@ router.put(
   validate({ moderatorId: "string" }),
   verifyObjectId(["hackathonId"]),
   removeModerator
+);
+
+router.put(
+  "/:hackathonId/team/:teamId/apply",
+  verifyToken,
+  verifyObjectId(["hackathonId", "teamId"]),
+  applyForHackathon
+);
+
+router.put(
+  "/:hackathonId/team/:teamId/approve",
+  verifyToken,
+  verifyObjectId(["hackathonId", "teamId"]),
+  approveTeamRequest
+);
+
+router.put(
+  "/:hackathonId/team/:teamId/reject",
+  verifyToken,
+  verifyObjectId(["hackathonId", "teamId"]),
+  approveTeamRequest
 );
 
 router.get(

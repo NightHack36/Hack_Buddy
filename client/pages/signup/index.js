@@ -29,9 +29,35 @@ const SignUp = () => {
                     <div className="mt-6">
                       <form action="#" method="POST" className="space-y-6">
 					  <div>
-                          <label for="email" className="block text-sm font-medium text-neutral-600"> Full Name </label>
+                          <label for="firstName" className="block text-sm font-medium text-neutral-600"> First Name </label>
                           <div className="mt-1">
-                            <input id="name" name="name" type="text" autocomplete="text" required="" placeholder="Your Name" className="
+                            <input id="firstName" name="firstName" type="text" autocomplete="text" required="" placeholder="First Name" className="
+                          block
+                          w-full
+                          px-5
+                          py-3
+                          text-base text-neutral-600
+                          placeholder-gray-300
+                          transition
+                          duration-500
+                          ease-in-out
+                          transform
+                          border border-transparent
+                          rounded-lg
+                          bg-gray-50
+                          focus:outline-none
+                          focus:border-transparent
+                          focus:ring-2
+                          focus:ring-white
+                          focus:ring-offset-2
+                          focus:ring-offset-gray-300
+                        "/>
+                          </div>
+								  </div>
+								  <div>
+                          <label for="lastName" className="block text-sm font-medium text-neutral-600"> Last Name </label>
+                          <div className="mt-1">
+                            <input id="lastName" name="lastName" type="text" autocomplete="text" required="" placeholder="Last Name" className="
                           block
                           w-full
                           px-5

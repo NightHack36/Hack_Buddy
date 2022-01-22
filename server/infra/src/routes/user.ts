@@ -17,7 +17,6 @@ router.post(
     firstName: "string",
     lastName: "string",
     email: "string",
-    mobileNumber: "number",
   }),
   register
 );

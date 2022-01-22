@@ -25,7 +25,6 @@ export const register = async (req: Request, res: Response) => {
       lastName: body.lastName,
       email: body.email.trim(),
       password: await argon2.hash(password),
-      mobileNumber: body.mobileNumber,
       createdTime: timeMilli,
       updatedTime: timeMilli,
       status: UserStatus.FTL,

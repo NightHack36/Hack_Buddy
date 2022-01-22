@@ -1,15 +1,11 @@
 import { Request, Response } from "express";
 import { ParticipatingTeamStatus } from "../enums/ParticipatingTeamStatus";
 import { AddModeratorInput } from "../models/hackathon";
-import {
-  CreateParticipatingTeamInput,
-  JoinParticipatingTeamInput,
-} from "../models/participating-team";
+import { CreateParticipatingTeamInput } from "../models/participating-team";
 import { UserTokenDetails } from "../models/user";
 import { generateRandomString } from "../utilities/RandomStringGenerator";
 import { mapObject } from "../utilities/RemoveUnderscoreId";
 import Hackathon from "./../schemas/hackathon";
-import { updateHackathon } from "./hackathon";
 
 export const createTeam = async (req: Request, res: Response) => {
   try {
@@ -32,6 +28,11 @@ export const createTeam = async (req: Request, res: Response) => {
       res
         .status(403)
         .json({ message: "You are already in a team for this hackathon" });
+      return;
+    }
+    const isModerator = hackathon.moderators.includes(userDetails.id);
+    if (isModerator) {
+      res.status(403).json({ message: "Moderators cannot participate" });
       return;
     }
     let teamCode = generateRandomString(8);
@@ -89,10 +90,29 @@ export const joinTeam = async (req: Request, res: Response) => {
         .json({ message: "You are already in a team for this hackathon" });
       return;
     }
-    if (
-      !hackathon.participatingTeams.find((team) => team.teamCode === teamCode)
-    ) {
+    const isModerator = hackathon.moderators.includes(userDetails.id);
+    if (isModerator) {
+      res.status(403).json({ message: "Moderators cannot participate" });
+      return;
+    }
+    const team = hackathon.participatingTeams.find(
+      (team) => team.teamCode === teamCode
+    );
+    if (!team) {
       res.status(404).json({ message: "Team not found" });
+      return;
+    }
+    if (team.users.length + 1 === hackathon.maxParticipantCount) {
+      res
+        .status(403)
+        .json({ message: "Team is already having max number of participant" });
+      return;
+    }
+    if (team.status !== ParticipatingTeamStatus.TEAM_FORMED) {
+      res.status(403).json({
+        message:
+          "Cannot add participant, this team has already applied for hackathon",
+      });
       return;
     }
     await Hackathon.findOneAndUpdate(
@@ -172,6 +192,151 @@ export const removeModerator = async (req: Request, res: Response) => {
       { new: true }
     );
     res.status(200).json(mapObject(updatedHackathon));
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+};
+
+export const applyForHackathon = async (req: Request, res: Response) => {
+  try {
+    const userDetails: UserTokenDetails = JSON.parse(
+      req.headers["user"] as string
+    );
+    const hackathonId = req.params.hackathonId;
+    const teamId = req.params.teamId;
+    const hackathon = await Hackathon.findOne({ _id: hackathonId });
+    if (!hackathon) {
+      res.status(404).json({ message: "Hackathon not found" });
+      return;
+    }
+    const team = hackathon.participatingTeams.find(
+      (team) => team.id === teamId
+    );
+    if (!team) {
+      res.status(404).json({ message: "team not found" });
+      return;
+    }
+    if (team.teamLeaderId !== userDetails.id) {
+      res.status(401).json();
+      return;
+    }
+    if (team.users.length + 1 < hackathon.minParticipantCount) {
+      res.status(403).json({ message: "team is not eligible to participate" });
+      return;
+    }
+    const updatedHackathon = await Hackathon.findOneAndUpdate(
+      { _id: hackathonId, "participatingTeams.id": teamId },
+      {
+        $set: {
+          "participatingTeams.$.status": ParticipatingTeamStatus.APPLIED,
+        },
+      },
+      { new: true }
+    );
+    res
+      .status(200)
+      .json(
+        mapObject(
+          updatedHackathon?.participatingTeams.find(
+            (team) => team.id === teamId
+          )
+        )
+      );
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+};
+
+export const approveTeamRequest = async (req: Request, res: Response) => {
+  try {
+    const userDetails: UserTokenDetails = JSON.parse(
+      req.headers["user"] as string
+    );
+    const hackathonId = req.params.hackathonId;
+    const teamId = req.params.teamId;
+    const hackathon = await Hackathon.findOne({ _id: hackathonId });
+    if (!hackathon) {
+      res.status(404).json({ message: "Hackathon not found" });
+      return;
+    }
+    if (hackathon.organizerId !== userDetails.id) {
+      res.status(401).json();
+      return;
+    }
+    const team = hackathon.participatingTeams.find(
+      (team) => team.id === teamId
+    );
+    if (!team) {
+      res.status(404).json({ message: "team not found" });
+      return;
+    }
+    const updatedHackathon = await Hackathon.findOneAndUpdate(
+      { _id: hackathonId, "participatingTeams.id": teamId },
+      {
+        $set: {
+          "participatingTeams.$.status": ParticipatingTeamStatus.ACCEPTED,
+        },
+      },
+      { new: true }
+    );
+    res
+      .status(200)
+      .json(
+        mapObject(
+          updatedHackathon?.participatingTeams.find(
+            (team) => team.id === teamId
+          )
+        )
+      );
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+};
+
+export const rejectTeamRequest = async (req: Request, res: Response) => {
+  try {
+    const userDetails: UserTokenDetails = JSON.parse(
+      req.headers["user"] as string
+    );
+    const hackathonId = req.params.hackathonId;
+    const teamId = req.params.teamId;
+    const hackathon = await Hackathon.findOne({ _id: hackathonId });
+    if (!hackathon) {
+      res.status(404).json({ message: "Hackathon not found" });
+      return;
+    }
+    if (hackathon.organizerId !== userDetails.id) {
+      res.status(401).json();
+      return;
+    }
+    const team = hackathon.participatingTeams.find(
+      (team) => team.id === teamId
+    );
+    if (!team) {
+      res.status(404).json({ message: "team not found" });
+      return;
+    }
+    const updatedHackathon = await Hackathon.findOneAndUpdate(
+      { _id: hackathonId, "participatingTeams.id": teamId },
+      {
+        $set: {
+          "participatingTeams.$.status": ParticipatingTeamStatus.REJECTED,
+        },
+      },
+      { new: true }
+    );
+    res
+      .status(200)
+      .json(
+        mapObject(
+          updatedHackathon?.participatingTeams.find(
+            (team) => team.id === teamId
+          )
+        )
+      );
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

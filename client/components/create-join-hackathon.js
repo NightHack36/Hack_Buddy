@@ -27,7 +27,7 @@ const CreateJoinHackathon = () => {
                   </span>
                 </p>
                 <div class="mt-6">
-                  <Link href="#">
+                  <Link href="/hackathons/create">
                     <a
                       class="
                       flex
@@ -69,7 +69,7 @@ const CreateJoinHackathon = () => {
                   </span>
                 </p>
                 <div class="mt-6">
-                  <Link href="#">
+                  <Link href="/hackathons/search">
                     <a
                       class="
                       w-full

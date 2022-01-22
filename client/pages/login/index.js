@@ -1,16 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 import axios from "axios";
 
-const SignUp = () => {
-  const [ data, setData ] = useState( {
+const SignIn = () => {
+  const [data, setData] = useState({
     email: "",
     password: "",
   });
-
-  const router = useRouter();
 
   const [error, setError] = useState("");
 
@@ -23,9 +21,10 @@ const SignUp = () => {
     try {
       const url = "http://localhost:8080/api/infra/user/login";
       console.log(data);
-      const { data: res } = await axios.post( url, data );
-      localStorate.setItem( "token", res.data );
-      window.location = "/"
+      const { data: res } = await axios.post(url, data);
+      localStorage.getItem("token", res.data);
+      window.location.href = "/main";
+      router.push("/login");
       console.log(res.message);
     } catch (err) {
       if (err) {
@@ -40,7 +39,6 @@ const SignUp = () => {
     }
   };
 
-const SignIn = () => {
   return (
     <section>
       <div className="flex min-h-screen overflow-hidden">
@@ -64,7 +62,11 @@ const SignIn = () => {
             </div>
             <div className="mt-8">
               <div className="mt-6">
-                <form action="#" method="POST" onSubmit={handleSubmit} className="space-y-6">
+                <form
+                  action="#"
+                  method="POST"
+                  onSubmit={handleSubmit}
+                  className="space-y-6">
                   <div>
                     <label
                       for="email"
@@ -170,12 +172,11 @@ const SignIn = () => {
                       </label>
                     </div>
                     <div className="text-sm">
-                      <Link to="/forget-password">
-                      <a
-                        className="font-medium text-blue-600 hover:text-blue-500">
-                        {" "}
-                        Forgot your password?{" "}
-                      </a>
+                      <Link href="/forget-password">
+                        <a className="font-medium text-blue-600 hover:text-blue-500">
+                          {" "}
+                          Forgot your password?{" "}
+                        </a>
                       </Link>
                     </div>
                   </div>

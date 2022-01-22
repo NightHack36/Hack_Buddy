@@ -2,6 +2,44 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+import axios from "axios";
+
+const SignUp = () => {
+  const [ data, setData ] = useState( {
+    email: "",
+    password: "",
+  });
+
+  const router = useRouter();
+
+  const [error, setError] = useState("");
+
+  const handleChange = ({ currentTarget: input }) => {
+    setData({ ...data, [input.name]: input.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const url = "http://localhost:8080/api/infra/user/login";
+      console.log(data);
+      const { data: res } = await axios.post( url, data );
+      localStorate.setItem( "token", res.data );
+      window.location = "/"
+      console.log(res.message);
+    } catch (err) {
+      if (err) {
+        if (
+          error.response &&
+          error.response.status >= 400 &&
+          error.response.status <= 500
+        ) {
+          setError(err.response.data.message);
+        }
+      }
+    }
+  };
+
 const SignIn = () => {
   return (
     <section>
@@ -26,7 +64,7 @@ const SignIn = () => {
             </div>
             <div className="mt-8">
               <div className="mt-6">
-                <form action="#" method="POST" className="space-y-6">
+                <form action="#" method="POST" onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <label
                       for="email"
@@ -39,6 +77,7 @@ const SignIn = () => {
                         id="email"
                         name="email"
                         type="email"
+                        value={data.email}
                         autocomplete="email"
                         required=""
                         placeholder="Your Email"
@@ -77,6 +116,7 @@ const SignIn = () => {
                       <input
                         id="password"
                         name="password"
+                        value={data.password}
                         type="password"
                         autocomplete="current-password"
                         required=""
@@ -130,19 +170,19 @@ const SignIn = () => {
                       </label>
                     </div>
                     <div className="text-sm">
+                      <Link to="/forget-password">
                       <a
-                        href="/forgot-password"
                         className="font-medium text-blue-600 hover:text-blue-500">
                         {" "}
                         Forgot your password?{" "}
                       </a>
+                      </Link>
                     </div>
                   </div>
                   <div>
-                    <Link href="/main">
-                      <button
-                        type="submit"
-                        className="
+                    <button
+                      type="submit"
+                      className="
                         flex
                         items-center
                         justify-center
@@ -164,10 +204,9 @@ const SignIn = () => {
                         focus:ring-offset-2
                         focus:ring-blue-500
                       ">
-                        {" "}
-                        Sign in{" "}
-                      </button>
-                    </Link>
+                      {" "}
+                      Sign in{" "}
+                    </button>
                   </div>
                 </form>
                 {/* <div className="relative my-4">

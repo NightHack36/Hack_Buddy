@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import axios from "axios";
 
@@ -9,8 +10,9 @@ const SignUp = () => {
     firstName: "",
     lastName: "",
     email: "",
-    password: "",
   });
+
+  const router = useRouter();
 
   const [error, setError] = useState("");
 
@@ -21,8 +23,10 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "http://localhost:8080/api/infra/user";
+      const url = "http://localhost:8080/api/infra/user/register";
+      console.log(data);
       const { data: res } = await axios.post(url, data);
+      router.push("/login");
       console.log(res.message);
     } catch (err) {
       if (err) {
@@ -195,47 +199,6 @@ const SignUp = () => {
                     </div>
                   </div>
 
-                  <div className="space-y-1">
-                    <label
-                      for="password"
-                      className="block text-sm font-medium text-neutral-600">
-                      {" "}
-                      Password{" "}
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        value={data.password}
-                        autocomplete="current-password"
-                        required
-                        onChange={handleChange}
-                        placeholder="Your Password"
-                        className="
-                          block
-                          w-full
-                          px-5
-                          py-3
-                          text-base text-neutral-600
-                          placeholder-gray-300
-                          transition
-                          duration-500
-                          ease-in-out
-                          transform
-                          border border-transparent
-                          rounded-lg
-                          bg-gray-50
-                          focus:outline-none
-                          focus:border-transparent
-                          focus:ring-2
-                          focus:ring-white
-                          focus:ring-offset-2
-                          focus:ring-offset-gray-300
-                        "
-                      />
-                    </div>
-                  </div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center">
                       <input
@@ -269,10 +232,10 @@ const SignUp = () => {
                     </div>
                   </div>
                   <div>
-                    <Link href="/login">
-                      <button
-                        type="submit"
-                        className="
+                    {/* <Link href="/login"> */}
+                    <button
+                      type="submit"
+                      className="
                         flex
                         items-center
                         justify-center
@@ -294,10 +257,10 @@ const SignUp = () => {
                         focus:ring-offset-2
                         focus:ring-blue-500
                       ">
-                        {" "}
-                        Sign up{" "}
-                      </button>
-                    </Link>
+                      {" "}
+                      Sign up{" "}
+                    </button>
+                    {/* </Link> */}
                   </div>
                 </form>
                 {/* <div className="relative my-4">

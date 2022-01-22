@@ -4,7 +4,6 @@ export interface RegisterUserInput {
   firstName: string;
   lastName: string;
   email: string;
-  mobileNumber: number;
 }
 
 export interface LoginUserInput {

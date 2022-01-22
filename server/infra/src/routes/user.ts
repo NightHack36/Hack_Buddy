@@ -1,4 +1,5 @@
 import express from "express";
+import { getMyHackathons } from "../controllers/hackathon";
 import {
   login,
   register,
@@ -25,10 +26,17 @@ router.post("/login", validate({ email: "string", password: "string" }), login);
 
 router.post(
   "/:id/reset-password",
-  validate({ newPassword: "string" }),
   verifyToken,
+  validate({ newPassword: "string" }),
   verifyObjectId(["id"]),
   resetPassword
+);
+
+router.get(
+  "/:id/hackathon",
+  verifyToken,
+  verifyObjectId(["id"]),
+  getMyHackathons
 );
 
 router.get("/", verifyToken, searchUser);

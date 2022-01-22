@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { HackathonStatus } from "../enums/HackathonStatus";
 import { ParticipatingTeamStatus } from "../enums/ParticipatingTeamStatus";
 import { AddModeratorInput } from "../models/hackathon";
 import { CreateParticipatingTeamInput } from "../models/participating-team";
@@ -17,6 +18,12 @@ export const createTeam = async (req: Request, res: Response) => {
     const hackathon = await Hackathon.findOne({ _id: hackathonId });
     if (!hackathon) {
       res.status(404).json({ message: "Hackathon not found" });
+      return;
+    }
+    if (hackathon.status !== HackathonStatus.REGISTRATION_STARTED) {
+      res
+        .status(403)
+        .json({ message: "Hackathon is not accepting registration" });
       return;
     }
     const userAlreadyInHackathon = hackathon.participatingTeams.find(
@@ -77,6 +84,12 @@ export const joinTeam = async (req: Request, res: Response) => {
     const hackathon = await Hackathon.findOne({ _id: hackathonId });
     if (!hackathon) {
       res.status(404).json({ message: "Hackathon not found" });
+      return;
+    }
+    if (hackathon.status !== HackathonStatus.REGISTRATION_STARTED) {
+      res
+        .status(403)
+        .json({ message: "Hackathon is not accepting registration" });
       return;
     }
     const userAlreadyInHackathon = hackathon.participatingTeams.find(
@@ -225,11 +238,13 @@ export const applyForHackathon = async (req: Request, res: Response) => {
       res.status(403).json({ message: "team is not eligible to participate" });
       return;
     }
+    const timeMilli = new Date().getTime();
     const updatedHackathon = await Hackathon.findOneAndUpdate(
       { _id: hackathonId, "participatingTeams.id": teamId },
       {
         $set: {
           "participatingTeams.$.status": ParticipatingTeamStatus.APPLIED,
+          "participatingTeams.$.updatedTime": timeMilli,
         },
       },
       { new: true }
@@ -272,11 +287,13 @@ export const approveTeamRequest = async (req: Request, res: Response) => {
       res.status(404).json({ message: "team not found" });
       return;
     }
+    const timeMilli = new Date().getTime();
     const updatedHackathon = await Hackathon.findOneAndUpdate(
       { _id: hackathonId, "participatingTeams.id": teamId },
       {
         $set: {
           "participatingTeams.$.status": ParticipatingTeamStatus.ACCEPTED,
+          "participatingTeams.$.updatedTime": timeMilli,
         },
       },
       { new: true }
@@ -319,11 +336,13 @@ export const rejectTeamRequest = async (req: Request, res: Response) => {
       res.status(404).json({ message: "team not found" });
       return;
     }
+    const timeMilli = new Date().getTime();
     const updatedHackathon = await Hackathon.findOneAndUpdate(
       { _id: hackathonId, "participatingTeams.id": teamId },
       {
         $set: {
           "participatingTeams.$.status": ParticipatingTeamStatus.REJECTED,
+          "participatingTeams.$.updatedTime": timeMilli,
         },
       },
       { new: true }

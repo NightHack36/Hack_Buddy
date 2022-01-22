@@ -35,6 +35,7 @@ client/.env.production.local
 
 #server
 server/infra/node_modules
+server/scheduler/node_modules
 
 #production
 server/infra/build
@@ -44,3 +45,4 @@ server/infra/dist
 
 #server env
 server/infra/.env
+server/scheduler/.env

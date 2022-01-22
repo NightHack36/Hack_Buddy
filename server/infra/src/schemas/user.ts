@@ -39,7 +39,7 @@ const userSchema = new mongoose.Schema({
   },
   updatedTime: {
     type: Number,
-    default: new Date().getTime(),
+    required: true,
   },
 });
 

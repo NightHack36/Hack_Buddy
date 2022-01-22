@@ -19,13 +19,15 @@ export const register = async (req: Request, res: Response) => {
   try {
     const body: RegisterUserInput = req.body;
     const password = generateRandomString(8);
+    const timeMilli = new Date().getTime();
     const user: IUser = await new User({
       firstName: body.firstName,
       lastName: body.lastName,
       email: body.email.trim(),
       password: await argon2.hash(password),
       mobileNumber: body.mobileNumber,
-      createdTime: new Date().getTime(),
+      createdTime: timeMilli,
+      updatedTime: timeMilli,
       status: UserStatus.FTL,
     }).save();
     const mailBody =
@@ -38,7 +40,11 @@ export const register = async (req: Request, res: Response) => {
       mailBody
     );
     res.status(201).json(user);
-  } catch (err) {
+  } catch (err: any) {
+    if (err.keyPattern.email) {
+      res.status(403).json({ message: "email already exists" });
+      return;
+    }
     console.log(err);
     res.status(500).json(err);
   }

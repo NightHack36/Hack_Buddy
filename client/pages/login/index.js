@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,6 +11,8 @@ const SignIn = () => {
     password: "",
   });
 
+  const router = useRouter();
+
   const [error, setError] = useState("");
 
   const handleChange = ({ currentTarget: input }) => {
@@ -20,11 +23,18 @@ const SignIn = () => {
     e.preventDefault();
     try {
       const url = "http://localhost:8080/api/infra/user/login";
-      console.log(data);
+
       const { data: res } = await axios.post(url, data);
-      localStorage.getItem("token", res.data);
-      window.location.href = "/main";
-      router.push("/login");
+      console.log(res);
+      localStorage.setItem("token", res.token);
+      localStorage.setItem("userId", res.user.id);
+
+      if (res.user.status === "FTL") {
+        router.push("/new-password");
+      } else {
+        router.push("/main");
+      }
+
       console.log(res.message);
     } catch (err) {
       if (err) {
@@ -83,6 +93,7 @@ const SignIn = () => {
                         autocomplete="email"
                         required=""
                         placeholder="Your Email"
+                        onChange={handleChange}
                         className=" block
                           w-full
                           px-5
@@ -123,6 +134,7 @@ const SignIn = () => {
                         autocomplete="current-password"
                         required=""
                         placeholder="Your Password"
+                        onChange={handleChange}
                         className="
                           block
                           w-full
@@ -172,7 +184,7 @@ const SignIn = () => {
                       </label>
                     </div>
                     <div className="text-sm">
-                      <Link href="/forget-password">
+                      <Link href="/reset-password">
                         <a className="font-medium text-blue-600 hover:text-blue-500">
                           {" "}
                           Forgot your password?{" "}

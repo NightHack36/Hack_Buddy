@@ -1,12 +1,13 @@
-import React from 'react';
+import React from "react";
+import Link from "next/link";
 
 const CreateJoinHackathon = () => {
-	return (
-	  
-          <section>
-            <div class="relative items-center w-full mx-auto md:px-12 lg:px-16 max-w-7xl">
-              <div class="max-w-2xl px-4 py-24 mx-auto sm:px-6 lg:px-8">
-                <div class="
+  return (
+    <section>
+      <div class="relative items-center w-full mx-auto md:px-12 lg:px-16 max-w-7xl">
+        <div class="max-w-2xl px-4 py-24 mx-auto sm:px-6 lg:px-8">
+          <div
+            class="
               justify-center
               mx-auto
               space-y-4
@@ -14,14 +15,21 @@ const CreateJoinHackathon = () => {
               lg:mx-auto
               xl:max-w-2xl xl:mx-0 xl:grid-cols-2
             ">
-                  <div class="bg-gray-50 rounded-xl">
-                    <div class="p-6 text-center">
-                      <h2 class="text-lg font-medium leading-6 text-neutral-600"> Organizers </h2>
-                      <p class="mt-8 text-4xl">
-                        <span class="font-black text-blue-600 uppercase">Create Hackathon</span>
-                      </p>
-                      <div class="mt-6">
-                        <a href="#" class="
+            <div class="bg-gray-50 rounded-xl">
+              <div class="p-6 text-center">
+                <h2 class="text-lg font-medium leading-6 text-neutral-600">
+                  {" "}
+                  Organizers{" "}
+                </h2>
+                <p class="mt-8 text-4xl">
+                  <span class="font-black text-blue-600 uppercase">
+                    Create Hackathon
+                  </span>
+                </p>
+                <div class="mt-6">
+                  <Link href="#">
+                    <a
+                      class="
                       flex
                       items-center
                       justify-center
@@ -42,19 +50,28 @@ const CreateJoinHackathon = () => {
                       focus:ring-2
                       focus:ring-offset-2
                       focus:ring-blue-500
-                    ">Click Here</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="bg-white rounded-xl">
-                    <div class="p-6 text-center">
-                      <h2 class="text-lg font-medium leading-6 text-neutral-600"> Participants </h2>
-                      <p class="mt-8 text-4xl">
-                        <span class="font-black text-gray-500 uppercase">Find Hackathons</span>
-
-                      </p>
-                      <div class="mt-6">
-                        <a href="#" class="
+                    ">
+                      Click Here
+                    </a>
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white rounded-xl">
+              <div class="p-6 text-center">
+                <h2 class="text-lg font-medium leading-6 text-neutral-600">
+                  {" "}
+                  Participants{" "}
+                </h2>
+                <p class="mt-8 text-4xl">
+                  <span class="font-black text-gray-500 uppercase">
+                    Find Hackathons
+                  </span>
+                </p>
+                <div class="mt-6">
+                  <Link href="#">
+                    <a
+                      class="
                       w-full
                       items-center
                       block
@@ -74,16 +91,18 @@ const CreateJoinHackathon = () => {
                       focus:ring-2
                       focus:ring-offset-2
                       focus:ring-gray-500
-                    ">Search Here</a>
-                      </div>
-                    </div>
-                  </div>
+                    ">
+                      Search Here
+                    </a>
+                  </Link>
                 </div>
               </div>
             </div>
-          </section>
-        
-  )
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default CreateJoinHackathon;

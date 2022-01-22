@@ -5,7 +5,12 @@ import {
   getHackathons,
   updateHackathon,
 } from "../controllers/hackathon";
-import { createTeam, joinTeam } from "../controllers/hackathon-activity";
+import {
+  addModerator,
+  createTeam,
+  joinTeam,
+  removeModerator,
+} from "../controllers/hackathon-activity";
 import { verifyObjectId } from "../middlewares/ObjectIdVerifier";
 import { verifyToken } from "../middlewares/token-verifier";
 import { validate } from "../middlewares/Validate";
@@ -48,6 +53,22 @@ router.put(
   verifyToken,
   verifyObjectId(["hackathonId"]),
   joinTeam
+);
+
+router.put(
+  "/:hackathonId/moderator/add",
+  verifyToken,
+  validate({ moderatorId: "string" }),
+  verifyObjectId(["hackathonId"]),
+  addModerator
+);
+
+router.put(
+  "/:hackathonId/moderator/remove",
+  verifyToken,
+  validate({ moderatorId: "string" }),
+  verifyObjectId(["hackathonId"]),
+  removeModerator
 );
 
 router.get(

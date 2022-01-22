@@ -109,3 +109,30 @@ export const resetPassword = async (req: Request, res: Response) => {
     res.status(500).json(err);
   }
 };
+
+export const searchUser = async (req: Request, res: Response) => {
+  try {
+    const searchName = (req.query.name as string).toLowerCase();
+    const users = await User.find({});
+    if (users.length === 0) {
+      res.status(204).json();
+      return;
+    }
+    const filteredUsers = users.filter(
+      (user) =>
+        (user.firstName + " " + user.lastName)
+          .toLowerCase()
+          .indexOf(searchName) !== -1
+    );
+    if (filteredUsers.length === 0) {
+      res.status(204).json();
+      return;
+    }
+    res
+      .status(200)
+      .json(filteredUsers.map((user) => removeUserPassword(mapObject(user))));
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+};

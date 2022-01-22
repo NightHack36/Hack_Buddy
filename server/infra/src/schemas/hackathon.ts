@@ -32,6 +32,7 @@ const hackathonSchema = new mongoose.Schema({
     required: true,
   },
   participatingTeams: [participatingTeamSchema],
+  moderators: [String],
   registrationStartTime: {
     type: Number,
   },

@@ -28,6 +28,7 @@ export const createHackathon = async (req: Request, res: Response) => {
       minParticipantCount: body.minParticipantCount,
       maxParticipantCount: body.maxParticipantCount,
       participatingTeams: [],
+      moderators: [],
       status: HackathonStatus.HACKATHON_CREATED,
       createdTime: timeMilli,
       updatedTime: timeMilli,

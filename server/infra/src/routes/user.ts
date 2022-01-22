@@ -1,5 +1,10 @@
 import express from "express";
-import { login, register, resetPassword } from "../controllers/user";
+import {
+  login,
+  register,
+  resetPassword,
+  searchUser,
+} from "../controllers/user";
 import { verifyObjectId } from "../middlewares/ObjectIdVerifier";
 import { verifyToken } from "../middlewares/token-verifier";
 import { validate } from "../middlewares/Validate";
@@ -26,5 +31,7 @@ router.post(
   verifyObjectId(["id"]),
   resetPassword
 );
+
+router.get("/", verifyToken, searchUser);
 
 export default router;

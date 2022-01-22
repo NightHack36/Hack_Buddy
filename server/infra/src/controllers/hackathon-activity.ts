@@ -1,12 +1,15 @@
 import { Request, Response } from "express";
 import { ParticipatingTeamStatus } from "../enums/ParticipatingTeamStatus";
+import { AddModeratorInput } from "../models/hackathon";
 import {
   CreateParticipatingTeamInput,
   JoinParticipatingTeamInput,
 } from "../models/participating-team";
 import { UserTokenDetails } from "../models/user";
 import { generateRandomString } from "../utilities/RandomStringGenerator";
+import { mapObject } from "../utilities/RemoveUnderscoreId";
 import Hackathon from "./../schemas/hackathon";
+import { updateHackathon } from "./hackathon";
 
 export const createTeam = async (req: Request, res: Response) => {
   try {
@@ -97,6 +100,78 @@ export const joinTeam = async (req: Request, res: Response) => {
       { $push: { "participatingTeams.$.users": userDetails.id } }
     );
     res.status(200).json({ message: "User added to team successfully" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+};
+
+export const addModerator = async (req: Request, res: Response) => {
+  try {
+    const body: AddModeratorInput = req.body;
+    const userDetails: UserTokenDetails = JSON.parse(
+      req.headers["user"] as string
+    );
+    const hackathonId = req.params.hackathonId;
+    const hackathon = await Hackathon.findOne({ _id: hackathonId });
+    if (!hackathon) {
+      res.status(404).json({ message: "Hackathon not found" });
+      return;
+    }
+    if (hackathon.organizerId !== userDetails.id) {
+      res.status(401).json();
+      return;
+    }
+    if (hackathon.moderators.includes(body.moderatorId)) {
+      res.status(403).json({ message: "Moderator is already added" });
+      return;
+    }
+    if (
+      hackathon.participatingTeams.find(
+        (team) =>
+          team.users.includes(body.moderatorId) ||
+          team.teamLeaderId === body.moderatorId
+      )
+    ) {
+      res.status(403).json({
+        message: "Moderator has already joined a team in this hackathon",
+      });
+      return;
+    }
+    const updatedHackathon = await Hackathon.findOneAndUpdate(
+      { _id: hackathonId },
+      { $push: { moderators: body.moderatorId } },
+      { new: true }
+    );
+    res.status(200).json(mapObject(updatedHackathon));
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+};
+
+export const removeModerator = async (req: Request, res: Response) => {
+  try {
+    const body: AddModeratorInput = req.body;
+    const userDetails: UserTokenDetails = JSON.parse(
+      req.headers["user"] as string
+    );
+    const hackathonId = req.params.hackathonId;
+    const hackathon = await Hackathon.findOne({ _id: hackathonId });
+    if (!hackathon) {
+      res.status(404).json({ message: "Hackathon not found" });
+      return;
+    }
+    if (hackathon.organizerId !== userDetails.id) {
+      res.status(401).json();
+      return;
+    }
+    const updatedHackathon = await Hackathon.findOneAndUpdate(
+      { _id: hackathonId },
+      { $pull: { moderators: body.moderatorId } },
+      { new: true }
+    );
+    res.status(200).json(mapObject(updatedHackathon));
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

@@ -27,7 +27,12 @@ export interface updateHackathonInput {
 export interface IHackathon extends CreateHackathonInput {
   id: string;
   participatingTeams: IParticipatingTeam[];
+  moderators: string[];
   status: HackathonStatus;
   createdTime: number;
   updatedTime: number;
+}
+
+export interface AddModeratorInput {
+  moderatorId: string;
 }

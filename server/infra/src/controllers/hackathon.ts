@@ -66,8 +66,7 @@ export const updateHackathon = async (req: Request, res: Response) => {
     }
     if (
       hackathon.status === HackathonStatus.IN_PROGRESS ||
-      hackathon.status === HackathonStatus.HACKATHON_ENDED ||
-      hackathon.status === HackathonStatus.HACKATHON_EXPIRED
+      hackathon.status === HackathonStatus.HACKATHON_ENDED
     ) {
       res.status(403).json({ message: "hackathon cannot be edited now" });
       return;
@@ -123,6 +122,34 @@ export const getHackathon = async (req: Request, res: Response) => {
       return;
     }
     res.status(200).json(mapObject(hackathon));
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+};
+
+export const getMyHackathons = async (req: Request, res: Response) => {
+  try {
+    const userDetails: UserTokenDetails = JSON.parse(
+      req.headers["user"] as string
+    );
+    const userId = req.params.id;
+    if (userId !== userDetails.id) {
+      res.status(401).json();
+      return;
+    }
+    const hackathons = await Hackathon.find({
+      $or: [
+        { organizerId: userId },
+        { "participatingTeams.teamLeaderId": userId },
+        { "participatingTeams.users": { $in: [userId] } },
+      ],
+    });
+    if (hackathons.length === 0) {
+      res.status(204).json();
+      return;
+    }
+    res.status(200).json(hackathons.map((hackathon) => mapObject(hackathon)));
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

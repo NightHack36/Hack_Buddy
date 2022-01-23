@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import axios from "axios";
+import Navbar from "../../components/Navbar";
 
 const SignUp = () => {
   const [data, setData] = useState({
@@ -42,15 +43,17 @@ const SignUp = () => {
   };
 
   return (
-    <section className="overflow-hidden">
-      <div className="flex min-h-screen overflow-hidden">
-        <div className="relative flex-1 hidden w-0 overflow-hidden lg:block">
-          <div className="absolute inset-0 object-cover w-full h-full bg-white">
-            <Image src="/static/img/signup.svg" alt="" layout="fill" />
+    <>
+      <Navbar />
+      <section className="overflow-hidden">
+        <div className="flex min-h-screen overflow-hidden">
+          <div className="relative flex-1 hidden w-0 overflow-hidden lg:block">
+            <div className="absolute inset-0 object-cover w-full h-full bg-white">
+              <Image src="/static/img/signup.svg" alt="" layout="fill" />
+            </div>
           </div>
-        </div>
-        <div
-          className="
+          <div
+            className="
             flex flex-col
             justify-center
             flex-1
@@ -61,38 +64,38 @@ const SignUp = () => {
             lg:flex-none lg:px-20
             xl:px-24
           ">
-          <div className="w-full max-w-xl mx-auto lg:w-96">
-            <div>
-              <h2 className="mt-6 text-3xl font-extrabold text-neutral-600">
-                {" "}
-                Sign up.{" "}
-              </h2>
-            </div>
-            <div className="mt-8">
-              <div className="mt-6">
-                <form
-                  action="#"
-                  method="POST"
-                  className="space-y-6"
-                  onSubmit={handleSubmit}>
-                  <div>
-                    <label
-                      for="firstName"
-                      className="block text-sm font-medium text-neutral-600">
-                      {" "}
-                      First Name{" "}
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        id="firstName"
-                        name="firstName"
-                        type="text"
-                        autocomplete="text"
-                        required
-                        placeholder="First Name"
-                        value={data.firstName}
-                        onChange={handleChange}
-                        className="
+            <div className="w-full max-w-xl mx-auto lg:w-96">
+              <div>
+                <h2 className="mt-6 text-3xl font-extrabold text-neutral-600">
+                  {" "}
+                  Sign up.{" "}
+                </h2>
+              </div>
+              <div className="mt-8">
+                <div className="mt-6">
+                  <form
+                    action="#"
+                    method="POST"
+                    className="space-y-6"
+                    onSubmit={handleSubmit}>
+                    <div>
+                      <label
+                        for="firstName"
+                        className="block text-sm font-medium text-neutral-600">
+                        {" "}
+                        First Name{" "}
+                      </label>
+                      <div className="mt-1">
+                        <input
+                          id="firstName"
+                          name="firstName"
+                          type="text"
+                          autocomplete="text"
+                          required
+                          placeholder="First Name"
+                          value={data.firstName}
+                          onChange={handleChange}
+                          className="
                           block
                           w-full
                           px-5
@@ -113,27 +116,27 @@ const SignUp = () => {
                           focus:ring-offset-2
                           focus:ring-offset-gray-300
                         "
-                      />
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <label
-                      for="lastName"
-                      className="block text-sm font-medium text-neutral-600">
-                      {" "}
-                      Last Name{" "}
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        id="lastName"
-                        name="lastName"
-                        value={data.lastName}
-                        type="text"
-                        autocomplete="text"
-                        required
-                        placeholder="Last Name"
-                        onChange={handleChange}
-                        className="
+                    <div>
+                      <label
+                        for="lastName"
+                        className="block text-sm font-medium text-neutral-600">
+                        {" "}
+                        Last Name{" "}
+                      </label>
+                      <div className="mt-1">
+                        <input
+                          id="lastName"
+                          name="lastName"
+                          value={data.lastName}
+                          type="text"
+                          autocomplete="text"
+                          required
+                          placeholder="Last Name"
+                          onChange={handleChange}
+                          className="
                           block
                           w-full
                           px-5
@@ -154,27 +157,27 @@ const SignUp = () => {
                           focus:ring-offset-2
                           focus:ring-offset-gray-300
                         "
-                      />
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <label
-                      for="email"
-                      className="block text-sm font-medium text-neutral-600">
-                      {" "}
-                      Email address{" "}
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        autocomplete="email"
-                        required
-                        onChange={handleChange}
-                        value={data.email}
-                        placeholder="Your Email"
-                        className="
+                    <div>
+                      <label
+                        for="email"
+                        className="block text-sm font-medium text-neutral-600">
+                        {" "}
+                        Email address{" "}
+                      </label>
+                      <div className="mt-1">
+                        <input
+                          id="email"
+                          name="email"
+                          type="email"
+                          autocomplete="email"
+                          required
+                          onChange={handleChange}
+                          value={data.email}
+                          placeholder="Your Email"
+                          className="
                           block
                           w-full
                           px-5
@@ -195,18 +198,18 @@ const SignUp = () => {
                           focus:ring-offset-2
                           focus:ring-offset-gray-300
                         "
-                      />
+                        />
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <input
-                        id="remember-me"
-                        name="remember-me"
-                        type="checkbox"
-                        placeholder="Your password"
-                        className="
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center">
+                        <input
+                          id="remember-me"
+                          name="remember-me"
+                          type="checkbox"
+                          placeholder="Your password"
+                          className="
                           w-4
                           h-4
                           text-blue-600
@@ -214,28 +217,28 @@ const SignUp = () => {
                           rounded
                           focus:ring-blue-500
                         "
-                      />
-                      <label
-                        for="remember-me"
-                        className="block ml-2 text-sm text-neutral-600">
-                        {" "}
-                        Remember me{" "}
-                      </label>
-                    </div>
-                    <div className="text-sm">
-                      <Link href="/reset-password">
-                        <a className="font-medium text-blue-600 hover:text-blue-500">
+                        />
+                        <label
+                          for="remember-me"
+                          className="block ml-2 text-sm text-neutral-600">
                           {" "}
-                          Forgot your password?{" "}
-                        </a>
-                      </Link>
+                          Remember me{" "}
+                        </label>
+                      </div>
+                      <div className="text-sm">
+                        <Link href="/reset-password">
+                          <a className="font-medium text-blue-600 hover:text-blue-500">
+                            {" "}
+                            Forgot your password?{" "}
+                          </a>
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    {/* <Link href="/login"> */}
-                    <button
-                      type="submit"
-                      className="
+                    <div>
+                      {/* <Link href="/login"> */}
+                      <button
+                        type="submit"
+                        className="
                         flex
                         items-center
                         justify-center
@@ -257,13 +260,13 @@ const SignUp = () => {
                         focus:ring-offset-2
                         focus:ring-blue-500
                       ">
-                      {" "}
-                      Sign up{" "}
-                    </button>
-                    {/* </Link> */}
-                  </div>
-                </form>
-                {/* <div className="relative my-4">
+                        {" "}
+                        Sign up{" "}
+                      </button>
+                      {/* </Link> */}
+                    </div>
+                  </form>
+                  {/* <div className="relative my-4">
                   <div className="absolute inset-0 flex items-center">
                     <div className="w-full border-t border-gray-300"></div>
                   </div>
@@ -303,12 +306,13 @@ const SignUp = () => {
                     </div>
                   </button>
                 </div> */}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

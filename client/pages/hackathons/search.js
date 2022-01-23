@@ -1,9 +1,11 @@
 import React from "react";
 import Link from "next/link";
+import Navbar from "../../components/Navbar";
 
 const Search = () => {
   return (
     <div>
+      <Navbar />
       <section class="text-gray-600 body-font">
         <h2 className="text-3xl font-bold tracking-tight pt-10 text-center sm:text-5xl dark:text-coolGray-50 ">
           Search your next Hackathon

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import axios from "axios";
+import Navbar from "../../components/Navbar";
 
 const SignIn = () => {
   const [data, setData] = useState({
@@ -51,6 +52,7 @@ const SignIn = () => {
 
   return (
     <section>
+      <Navbar />
       <div className="flex min-h-screen overflow-hidden">
         <div
           className="

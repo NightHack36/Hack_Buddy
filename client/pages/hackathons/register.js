@@ -1,9 +1,11 @@
 import React from "react";
 import Link from "next/link";
+import Navbar from "../../components/Navbar";
 
 const RegisterHackathon = () => {
   return (
     <section>
+      <Navbar />
       <div class="relative items-center w-full mx-auto md:px-12 lg:px-16 max-w-7xl">
         <div class="max-w-2xl px-4 py-24 mx-auto sm:px-6 lg:px-8">
           <div

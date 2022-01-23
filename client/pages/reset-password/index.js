@@ -1,19 +1,35 @@
-import React from 'react';
+import React from "react";
+import Navbar from "../../components/Navbar";
 
 const ForgotPassword = () => {
   return (
-          <section>
-            <div class="flex flex-col justify-center min-h-screen py-12 sm:px-6 lg:px-8">
-              <div class="sm:mx-auto sm:w-full sm:max-w-md">
-                <h2 class="mt-6 text-3xl font-extrabold text-center text-neutral-600"> Enter Email Id to get Reset Password Link </h2>
-              </div>
-              <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                <div class="px-4 py-8 sm:px-10">
-                  <form class="space-y-6" action="#" method="POST">
-                    <div>
-                      <label for="email" class="block text-sm font-medium text-gray-700"> Email address </label>
-                      <div class="mt-1">
-                        <input id="email" name="email" type="email" autocomplete="email" required="" class="
+    <section>
+      <Navbar />
+      <div class="flex flex-col justify-center min-h-screen py-12 sm:px-6 lg:px-8">
+        <div class="sm:mx-auto sm:w-full sm:max-w-md">
+          <h2 class="mt-6 text-3xl font-extrabold text-center text-neutral-600">
+            {" "}
+            Enter Email Id to get Reset Password Link{" "}
+          </h2>
+        </div>
+        <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+          <div class="px-4 py-8 sm:px-10">
+            <form class="space-y-6" action="#" method="POST">
+              <div>
+                <label
+                  for="email"
+                  class="block text-sm font-medium text-gray-700">
+                  {" "}
+                  Email address{" "}
+                </label>
+                <div class="mt-1">
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    autocomplete="email"
+                    required=""
+                    class="
                       block
                       w-full
                       px-5
@@ -33,12 +49,15 @@ const ForgotPassword = () => {
                       focus:ring-white
                       focus:ring-offset-2
                       focus:ring-offset-gray-300
-                    "/>
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <button type="submit" class="
+                    "
+                  />
+                </div>
+              </div>
+
+              <div>
+                <button
+                  type="submit"
+                  class="
                     flex
                     items-center
                     justify-center
@@ -59,14 +78,17 @@ const ForgotPassword = () => {
                     focus:ring-2
                     focus:ring-offset-2
                     focus:ring-blue-500
-                  "> Reset My Password </button>
-                    </div>
-                  </form>
-                </div>
+                  ">
+                  {" "}
+                  Reset My Password{" "}
+                </button>
               </div>
-            </div>
-          </section>
-  )        
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default ForgotPassword;

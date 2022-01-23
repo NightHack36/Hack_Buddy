@@ -1,8 +1,10 @@
 import React from "react";
+import Navbar from "../../components/Navbar";
 
 const Detail = () => {
   return (
     <div>
+      <Navbar />
       <h2 className="text-3xl font-bold tracking-tight pt-20 pb-0 text-center sm:text-5xl dark:text-coolGray-50 ">
         Hackathon 1
       </h2>

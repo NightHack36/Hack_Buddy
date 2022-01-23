@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import CreateJoinHackathon from "../../components/create-join-hackathon";
 import axios from "axios";
 import HackathonCard from "../../components/HackathonCard";
+import Navbar from "../../components/Navbar";
 
 const index = () => {
   const [hackathons, setHackathons] = useState([]);
@@ -20,6 +21,7 @@ const index = () => {
 
   return (
     <div>
+      <Navbar />
       <CreateJoinHackathon />
 
       {hackathons.length === 0 ? (

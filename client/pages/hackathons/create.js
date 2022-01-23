@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import axios from "axios";
+import Navbar from "../../components/Navbar";
 
 const createHackathon = () => {
   const router = useRouter();
@@ -65,19 +66,21 @@ const createHackathon = () => {
   };
 
   return (
-    <section className="overflow-hidden">
-      <div className="flex min-h-screen overflow-hidden">
-        <div className="relative flex-1 hidden w-0 overflow-hidden lg:block">
-          <div className="absolute inset-0 object-cover w-full h-full bg-white">
-            <Image
-              src="/static/img/hackathon-create.svg"
-              alt=""
-              layout="fill"
-            />
+    <>
+      <Navbar />
+      <section className="overflow-hidden">
+        <div className="flex min-h-screen overflow-hidden">
+          <div className="relative flex-1 hidden w-0 overflow-hidden lg:block">
+            <div className="absolute inset-0 object-cover w-full h-full bg-white">
+              <Image
+                src="/static/img/hackathon-create.svg"
+                alt=""
+                layout="fill"
+              />
+            </div>
           </div>
-        </div>
-        <div
-          className="
+          <div
+            className="
             flex flex-col
             justify-center
             flex-1
@@ -88,38 +91,38 @@ const createHackathon = () => {
             lg:flex-none lg:px-20
             xl:px-24
           ">
-          <div className="w-full max-w-xl mx-auto lg:w-96">
-            <div>
-              <h2 className="mt-6 text-3xl font-extrabold text-neutral-600">
-                {" "}
-                Create Hackathon.{" "}
-              </h2>
-            </div>
-            <div className="mt-8">
-              <div className="mt-6">
-                <form
-                  action="#"
-                  method="POST"
-                  className="space-y-6"
-                  onSubmit={handleSubmit}>
-                  <div>
-                    <label
-                      for="name"
-                      className="block text-sm font-medium text-neutral-600">
-                      {" "}
-                      Name{" "}
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        id="name"
-                        name="name"
-                        type="text"
-                        autocomplete="text"
-                        value={data.name}
-                        onChange={handleChange}
-                        required
-                        placeholder="Name"
-                        className="
+            <div className="w-full max-w-xl mx-auto lg:w-96">
+              <div>
+                <h2 className="mt-6 text-3xl font-extrabold text-neutral-600">
+                  {" "}
+                  Create Hackathon.{" "}
+                </h2>
+              </div>
+              <div className="mt-8">
+                <div className="mt-6">
+                  <form
+                    action="#"
+                    method="POST"
+                    className="space-y-6"
+                    onSubmit={handleSubmit}>
+                    <div>
+                      <label
+                        for="name"
+                        className="block text-sm font-medium text-neutral-600">
+                        {" "}
+                        Name{" "}
+                      </label>
+                      <div className="mt-1">
+                        <input
+                          id="name"
+                          name="name"
+                          type="text"
+                          autocomplete="text"
+                          value={data.name}
+                          onChange={handleChange}
+                          required
+                          placeholder="Name"
+                          className="
                           block
                           w-full
                           px-5
@@ -140,27 +143,27 @@ const createHackathon = () => {
                           focus:ring-offset-2
                           focus:ring-offset-gray-300
                         "
-                      />
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <label
-                      for="startDate"
-                      className="block text-sm font-medium text-neutral-600">
-                      {" "}
-                      Start Time{" "}
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        id="startDate"
-                        name="startDate"
-                        value={date.startDate}
-                        type="datetime-local"
-                        autocomplete="datetime"
-                        required
-                        placeholder="Start Date"
-                        onChange={handleDateChange}
-                        className="
+                    <div>
+                      <label
+                        for="startDate"
+                        className="block text-sm font-medium text-neutral-600">
+                        {" "}
+                        Start Time{" "}
+                      </label>
+                      <div className="mt-1">
+                        <input
+                          id="startDate"
+                          name="startDate"
+                          value={date.startDate}
+                          type="datetime-local"
+                          autocomplete="datetime"
+                          required
+                          placeholder="Start Date"
+                          onChange={handleDateChange}
+                          className="
                           block
                           w-full
                           px-5
@@ -181,27 +184,27 @@ const createHackathon = () => {
                           focus:ring-offset-2
                           focus:ring-offset-gray-300
                         "
-                      />
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <label
-                      for="endDate"
-                      className="block text-sm font-medium text-neutral-600">
-                      {" "}
-                      End Time{" "}
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        id="endDate"
-                        name="endDate"
-                        value={date.endDate}
-                        type="datetime-local"
-                        autocomplete="datetime"
-                        required
-                        placeholder="End Date"
-                        onChange={handleDateChange}
-                        className="
+                    <div>
+                      <label
+                        for="endDate"
+                        className="block text-sm font-medium text-neutral-600">
+                        {" "}
+                        End Time{" "}
+                      </label>
+                      <div className="mt-1">
+                        <input
+                          id="endDate"
+                          name="endDate"
+                          value={date.endDate}
+                          type="datetime-local"
+                          autocomplete="datetime"
+                          required
+                          placeholder="End Date"
+                          onChange={handleDateChange}
+                          className="
                           block
                           w-full
                           px-5
@@ -222,27 +225,27 @@ const createHackathon = () => {
                           focus:ring-offset-2
                           focus:ring-offset-gray-300
                         "
-                      />
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <label
-                      for="minParticipantCount"
-                      className="block text-sm font-medium text-neutral-600">
-                      {" "}
-                      Minimum Participant Count{" "}
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        id="minParticipantCount"
-                        name="minParticipantCount"
-                        type="number"
-                        autocomplete="number"
-                        required
-                        onChange={handleChange}
-                        value={data.minParticipantCount}
-                        placeholder="0"
-                        className="
+                    <div>
+                      <label
+                        for="minParticipantCount"
+                        className="block text-sm font-medium text-neutral-600">
+                        {" "}
+                        Minimum Participant Count{" "}
+                      </label>
+                      <div className="mt-1">
+                        <input
+                          id="minParticipantCount"
+                          name="minParticipantCount"
+                          type="number"
+                          autocomplete="number"
+                          required
+                          onChange={handleChange}
+                          value={data.minParticipantCount}
+                          placeholder="0"
+                          className="
                           block
                           w-full
                           px-5
@@ -263,28 +266,28 @@ const createHackathon = () => {
                           focus:ring-offset-2
                           focus:ring-offset-gray-300
                         "
-                      />
+                        />
+                      </div>
                     </div>
-                  </div>
 
-                  <div>
-                    <label
-                      for="maxParticipantCount"
-                      className="block text-sm font-medium text-neutral-600">
-                      {" "}
-                      Maximum Participant Count{" "}
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        id="maxParticipantCount"
-                        name="maxParticipantCount"
-                        type="number"
-                        autocomplete="number"
-                        required
-                        onChange={handleChange}
-                        value={data.maxParticipantCount}
-                        placeholder="0"
-                        className="
+                    <div>
+                      <label
+                        for="maxParticipantCount"
+                        className="block text-sm font-medium text-neutral-600">
+                        {" "}
+                        Maximum Participant Count{" "}
+                      </label>
+                      <div className="mt-1">
+                        <input
+                          id="maxParticipantCount"
+                          name="maxParticipantCount"
+                          type="number"
+                          autocomplete="number"
+                          required
+                          onChange={handleChange}
+                          value={data.maxParticipantCount}
+                          placeholder="0"
+                          className="
                           block
                           w-full
                           px-5
@@ -305,15 +308,15 @@ const createHackathon = () => {
                           focus:ring-offset-2
                           focus:ring-offset-gray-300
                         "
-                      />
+                        />
+                      </div>
                     </div>
-                  </div>
 
-                  <div>
-                    {/* <Link href="/login"> */}
-                    <button
-                      type="submit"
-                      className="
+                    <div>
+                      {/* <Link href="/login"> */}
+                      <button
+                        type="submit"
+                        className="
                         flex
                         items-center
                         justify-center
@@ -335,13 +338,13 @@ const createHackathon = () => {
                         focus:ring-offset-2
                         focus:ring-blue-500
                       ">
-                      {" "}
-                      Create Hackathon{" "}
-                    </button>
-                    {/* </Link> */}
-                  </div>
-                </form>
-                {/* <div className="relative my-4">
+                        {" "}
+                        Create Hackathon{" "}
+                      </button>
+                      {/* </Link> */}
+                    </div>
+                  </form>
+                  {/* <div className="relative my-4">
                   <div className="absolute inset-0 flex items-center">
                     <div className="w-full border-t border-gray-300"></div>
                   </div>
@@ -381,12 +384,13 @@ const createHackathon = () => {
                     </div>
                   </button>
                 </div> */}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

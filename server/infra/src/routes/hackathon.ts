@@ -11,6 +11,7 @@ import {
   approveTeamRequest,
   createTeam,
   joinTeam,
+  rejectTeamRequest,
   removeModerator,
 } from "../controllers/hackathon-activity";
 import { verifyObjectId } from "../middlewares/ObjectIdVerifier";
@@ -91,7 +92,7 @@ router.put(
   "/:hackathonId/team/:teamId/reject",
   verifyToken,
   verifyObjectId(["hackathonId", "teamId"]),
-  approveTeamRequest
+  rejectTeamRequest
 );
 
 router.get(

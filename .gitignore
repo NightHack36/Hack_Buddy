@@ -36,13 +36,17 @@ client/.env.production.local
 #server
 server/infra/node_modules
 server/scheduler/node_modules
+server/chat-mgmt/node_modules
 
 #production
 server/infra/build
 
 #js files
 server/infra/dist
+server/scheduler/dist
+server/chat-mgmt/dist
 
 #server env
 server/infra/.env
 server/scheduler/.env
+server/chat-mgmt/.env

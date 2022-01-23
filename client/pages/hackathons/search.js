@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 const Search = () => {
   return (
@@ -28,9 +29,11 @@ const Search = () => {
                 <button class="flex mx-auto mt-6 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded">
                   View More
                 </button>
-                <button class="flex mx-auto mt-6 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded">
-                  Register
-                </button>
+                <Link href="/hackathons/register">
+                  <button class="flex mx-auto mt-6 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded">
+                    Register
+                  </button>
+                </Link>
               </div>
             </div>
             <div class="sm:w-1/2 mb-10 px-4">
@@ -52,9 +55,11 @@ const Search = () => {
                 <button class="flex mx-auto mt-6 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded">
                   View More
                 </button>
-                <button class="flex mx-auto mt-6 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded">
-                  Register
-                </button>
+                <Link href="/hackathons/register">
+                  <button class="flex mx-auto mt-6 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded">
+                    Register
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
